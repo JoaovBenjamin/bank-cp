@@ -3,6 +3,10 @@ package com.example.bankcp.Model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.example.bankcp.validation.CpfDuplicado;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,24 +23,24 @@ import lombok.Data;
 public class Conta {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    // @NotBlank(message = "{conta.numeroagencia.notblank}")
+    @NotBlank(message = "{conta.numeroagencia.notblank}")
     private String numeroAgencia;
-    // @NotBlank(message = "{conta.nome.notblank}")
-    // @Size(message = "{conta.nome.size}", min = 5, max = 50)
+    @NotBlank(message = "{conta.nome.notblank}")
+    @Size(message = "{conta.nome.size}", min = 5, max = 50)
     private String nome;
-    // @NotBlank(message = "{conta.cpf.notblank}")
-    // @Size(message = "{conta.cpf.size}", min = 11, max = 14)
+    @NotBlank(message = "{conta.cpf.notblank}")
+    @CPF(message = "{conta.cpf}")
+    @CpfDuplicado(message = "{conta.cpf.CpfDuplicado}")
     private String cpf;
-    // @NotBlank(message = "{conta.datacriacao.notblank}")
-    // @PastOrPresent(message = "{conta.datacriacao.pastorpresent}")
+    @PastOrPresent(message = "{conta.datacriacao.pastorpresent}")
     private LocalDate datacriacao;
-    // @PositiveOrZero(message = "{conta.saldo.positivoupperzero}")
+    @PositiveOrZero(message = "{conta.saldo.positivoupperzero}")
     private BigDecimal saldo;
     private boolean ativa = true;
-    //  @Pattern(
-    //     regexp = "^(CORRENTE|POUPANCA|SALARIO)$",
-    //     message = "{conta.tipo.pattern}"
-    // )    
+     @Pattern(
+        regexp = "^(CORRENTE|POUPANCA|SALARIO)$",
+        message = "{conta.tipo.pattern}"
+    )    
     private String tipo;
 
 }
