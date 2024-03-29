@@ -5,8 +5,8 @@ import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.example.bankcp.validation.CpfDuplicado;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +30,7 @@ public class Conta {
     private String nome;
     @NotBlank(message = "{conta.cpf.notblank}")
     @CPF(message = "{conta.cpf}")
-    @CpfDuplicado(message = "{conta.cpf.CpfDuplicado}")
+    @Column(unique = true)
     private String cpf;
     @PastOrPresent(message = "{conta.datacriacao.pastorpresent}")
     private LocalDate datacriacao;
